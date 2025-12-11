@@ -383,7 +383,7 @@ cin >> minofact;
 cout << "==============================================================\n";
 cout << "\nDaily Assessment Summary:\n";
 
-//Water
+
 if(water>=8) {
 assessment += "Excellent,";
 } else if (water >= 5) {
@@ -391,13 +391,13 @@ assessment += "Good,";
 } else { 
 assessment += "Poor,"; }
 
-//Computation 
+
 int excellentCount = 0, goodCount = 0, poorCount = 0;
 if (assessment.find("Excellent") != string: :npos) excellentCount++;
 if (assessment.find("Good") != string: :npos) goodCount++;
 if (assessment.find("Poor") != string: :npos) poorCount++;
 
-//Decision
+
 if (excellentCount >= 2) {
 overallWellness = "Excellent Wellness";
 }
@@ -410,7 +410,7 @@ overWellness = "Poor Wellness";
 cout <<"\nOVERALL WELLNESS: " << overWellness << endl;
 cout << "==============================================================\n";
 
-//Save
+
 SaveUserRecord(username, "DAILY_ASSESSMENT", overallWellness);
 SaveRecord("User performed daily assessment", username);
 
