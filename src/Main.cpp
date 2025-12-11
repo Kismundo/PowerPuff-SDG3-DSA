@@ -9,8 +9,7 @@
 #include <limits>
 #include <functional>
 
-using namepsace std;
-
+using namespace std;
 
 void Welcome();
 void LogIn();
@@ -212,15 +211,15 @@ void LogIn() {
 
     string hashedInput = HashPassword(password);
 
-    pendingTasks.clear();
+    PendingTasks.clear();
 
     if (userSystem.isAdmin(username, hashedInput)) {
         cout << "Admin login successful! Welcome back, " << username << ".\n";
         SaveRecord("Admin logged in", username);
 
-        pendingTasks.enqueue("Daily Assessment");
-        pendingTasks.enqueue("Symptoms Checker");
-        pendingTasks.enqueue("BMI Checker");
+        PendingTasks.enqueue("Daily Assessment");
+        PendingTasks.enqueue("Symptoms Checker");
+        PendingTasks.enqueue("BMI Checker");
 
         SecMenu(username);
         return;
@@ -243,10 +242,10 @@ void LogIn() {
             SaveUserRecord(storedUser, "SYSTEM", "User logged into system");
             file.close();
 
-            pendingTasks.clear();
-            pendingTasks.enqueue("Daily Assessment");
-            pendingTasks.enqueue("Symptoms Checker");
-            pendingTasks.enqueue("BMI Checker");
+            PendingTasks.clear();
+            PendingTasks.enqueue("Daily Assessment");
+            PendingTasks.enqueue("Symptoms Checker");
+            PendingTasks.enqueue("BMI Checker");
 
             SecMenu(storedUser);
             return;
@@ -327,7 +326,7 @@ void SecMenu(const string& username) {
         cout << "----------------------------------------------------\n";
 
         cout << "\nYour Current Task Queue:\n";
-        pendingTasks.display();
+        PendingTasks.display();
         cout << endl;
 
         cout << "Enter Your Chosen Number Here: ";
@@ -356,7 +355,7 @@ void SecMenu(const string& username) {
                 cout << "Logging out...\n";
                 SaveUserRecord(username, "SYSTEM", "User logged out");
                 SaveRecord("User logged out", username);
-                pendingTasks.clear();
+                PendingTasks.clear();
                 return;
             default:
                 cout << "[Error] Invalid Input! Choose 1-5 only.\n";
@@ -523,22 +522,22 @@ string category;
 
     if (bmi < 18.5){
         category = "Underweight";
-        cout << "Category : " << category << \n;
+        cout << "Category : " << category << "\n";
     }else if (bmi < 24.9){
        category = "Normal Weight";
-       cout << "Category : " << category << \n;
+       cout << "Category : " << category << "\n";
     }else if (bmi < 29.9){
         category = "Overweight";
-        cout << "Category : " << category << \n;
+        cout << "Category : " << category << "\n";
     }else if (bmi < 34.9){
         category = "Obese Class I";
-        cout << "Category : " << category << \n;
+        cout << "Category : " << category << "\n";
     }else if (bmi < 39.9){
         category = "Obese Class II";
-        cout << "Category : " << category << \n;
+        cout << "Category : " << category << "\n";
     }else {
         category = "Obese Class III (Severe)";
-        cout << "Category : " << category << \n;
+        cout << "Category : " << category << "\n";
     }
 
     cout << "===============================\n";
