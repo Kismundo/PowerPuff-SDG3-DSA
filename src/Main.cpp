@@ -477,4 +477,7 @@ string category;
 
     string detailes = "weight: " + to_string(weight) + "kg, Height: " + to_string(heightCm) + "cm,BMI: " + to_string(bmi) + " , Category: " = category;
     SaveUserRecord(username , "BMI_CHECK", details);
+    SaveRecord("User performed BMI check", username);
+
+    if (!pendingTasks.isEmpty()) pendingTasks.dequeue();
 }
