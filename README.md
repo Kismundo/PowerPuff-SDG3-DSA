@@ -114,7 +114,7 @@ PROGRAM FLOW
 
 --------------------------------
 PASSWORD HASHING
-//password are stored as hashed string to prevents storing plain-text password.
+// password are stored as hashed string to prevents storing plain-text password.
 - Using:
   - hash<string>
 --------------------------------
