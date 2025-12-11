@@ -15,16 +15,31 @@ FEATURES
 User & Admin System
 
 - Register new user
+
+  
 -Secure login system using std::hash
+
+
 -Built-in admin accounts
+
+
 -------------------------
 -------------------------
 HEALTH TOOLS
+
 Daily Assesment
 -Ask water intake
+
+
 -Ask hours of sleep
+
+
 -Ask physical activity
+
+
 -Generate overall rating
+
+
 -------------------------
 -------------------------
 Symptoms Checker
