@@ -6,6 +6,7 @@ void Welcome();
 void MainMenu();
 
 
+
 struct RecordNode {
     string timestamp, category, details;
     RecordNode* next;
@@ -17,7 +18,7 @@ struct RecordNode {
         next = nullptr;
     }
 };
-class TaskQueue {
+class TaskQueue { //array-based queue to ha
 private:
     string tasks[10];
     int front, rear;
@@ -71,6 +72,35 @@ public:
     }
 };
 
+TaskQueue PendingTasks;
+
+void bubbleSort(vector<string>& records) {
+    int n = (int)records.size();
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (records[j] > records[j + 1]) {
+                swap(records[j], records[j + 1]);
+            }
+        }
+    }
+}
+
+string GetTime() {
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+
+    char buffer[40];
+    snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d %02d:%02d",
+             1900 + ltm->tm_year,
+             1 + ltm->tm_mon,
+             ltm->tm_mday,
+             ltm->tm_hour,
+             ltm->tm_min);
+
+    return string(buffer);
+}
+
+
 void Welcome(){
     cout << "=======================================\n";
     cout << "WELCOME TO HEALTH-TRACKER SYSTEM\n";
@@ -112,6 +142,12 @@ void MainMenu(){
     } while (true);
 }
 
+
+SecMenu(){
+
+
+    
+}
 
 
 void SymptomsChecker(const string& username){
