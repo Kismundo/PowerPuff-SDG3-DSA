@@ -6,6 +6,7 @@ void LogIn();
 void Register();
 void SaveRecord(const string &action, const string &username = "");
 void MainMenu();
+void DailyAssessment(const string& username);
 
 
 
@@ -292,7 +293,58 @@ SecMenu(){
 
     
 }
+void DailyAssessment(const string& username) {
+int water, hrsofsleep, minofact;
+string assessment;
+string overallWellness;
 
+cout << "==============================================================\n";
+
+cout <<"Indicate the number of cups of water you drank today: ";
+cin >> water;
+
+cout <<"Specify your sleep hours last night: ";
+cin >> hrsofsleep;
+
+cout <<"Minutes of Physical today: ";
+cin >> minofact;
+
+cout << "==============================================================\n";
+cout << "\nDaily Assessment Summary:\n";
+
+//Water
+if(water>=8) {
+assessment += "Excellent,";
+} else if (water >= 5) {
+assessment += "Good,";
+} else { 
+assessment += "Poor,"; }
+
+//Computation 
+int excellentCount = 0, goodCount = 0, poorCount = 0;
+if (assessment.find("Excellent") != string: :npos) excellentCount++;
+if (assessment.find("Good") != string: :npos) goodCount++;
+if (assessment.find("Poor") != string: :npos) poorCount++;
+
+//Decision
+if (excellentCount >= 2) {
+overallWellness = "Excellent Wellness";
+}
+else if (excellentCount >= 2 ||(excellentCount >= 1 && goodCount >= 1)) {
+overallWellness = "Good Wellness";
+} else {
+overWellness = "Poor Wellness";
+)
+
+cout <<"\nOVERALL WELLNESS: " << overWellness << endl;
+cout << "==============================================================\n";
+
+//Save
+SaveUserRecord(username, "DAILY_ASSESSMENT", overallWellness);
+SaveRecord("User performed daily assessment", username);
+
+if (!pendingTasks.isEmpty()) pendingTasks.dequeue(); 
+}
 
 void SymptomsChecker(const string& username) {
     char soreThroat, headache, cough, chestPain, backPain;
