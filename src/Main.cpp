@@ -1,8 +1,10 @@
 #include <iostream>
-
 using namepsace std;
 //prototype
 void Welcome();
+void LogIn();
+void Register();
+void SaveRecord(const string &action, const string &username = "");
 void MainMenu();
 
 
@@ -85,6 +87,37 @@ void bubbleSort(vector<string>& records) {
     }
 }
 
+class User {
+private:
+    vector<pair<string, string>> adminAccounts;
+
+public:
+    User() {
+        adminAccounts.push_back({"khiemi", HashPassword("Codeh@n37")});
+        adminAccounts.push_back({"Lad", HashPassword("pass123")});
+        adminAccounts.push_back({"Jerome", HashPassword("Rico3")});
+        adminAccounts.push_back({"Jereyme", HashPassword("Hylo$")});
+        adminAccounts.push_back({"Chloe", HashPassword("Dmakaus@d")});
+    }
+
+    bool isAdmin(const string &username, const string &passwordHash) {
+        for (auto &admin : adminAccounts) {
+            if (admin.first == username && admin.second == passwordHash) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+User userSystem;
+
+string HashPassword(const string &password) {
+    hash<string> hasher;
+    size_t hashed = hasher(password);
+    return to_string(hashed);
+}
+
 string GetTime() {
     time_t now = time(0);
     tm *ltm = localtime(&now);
@@ -142,6 +175,117 @@ void MainMenu(){
     } while (true);
 }
 
+void LogIn() {
+    string username, password;
+    cout << "\nEnter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+
+    string hashedInput = HashPassword(password);
+
+    pendingTasks.clear();
+
+    if (userSystem.isAdmin(username, hashedInput)) {
+        cout << "Admin login successful! Welcome back, " << username << ".\n";
+        SaveRecord("Admin logged in", username);
+
+        pendingTasks.enqueue("Daily Assessment");
+        pendingTasks.enqueue("Symptoms Checker");
+        pendingTasks.enqueue("BMI Checker");
+
+        SecMenu(username);
+        return;
+    }
+
+    ifstream file("users.txt");
+    if (!file.is_open()) {
+        cout << "Error opening users file.\n";
+        return;
+    }
+
+    string storedName, storedUser, storedPass;
+    bool success = false;
+
+    while (file >> storedName >> storedUser >> storedPass) {
+        if (storedUser == username && storedPass == hashedInput) {
+            success = true;
+            cout << "User login successful! Welcome back, " << storedName << ".\n";
+            SaveRecord("User logged in", storedUser);
+            SaveUserRecord(storedUser, "SYSTEM", "User logged into system");
+            file.close();
+
+            pendingTasks.clear();
+            pendingTasks.enqueue("Daily Assessment");
+            pendingTasks.enqueue("Symptoms Checker");
+            pendingTasks.enqueue("BMI Checker");
+
+            SecMenu(storedUser);
+            return;
+        }
+    }
+
+    file.close();
+
+    if (!success) {
+        cout << "Login failed. Incorrect username or password.\n";
+        SaveRecord("Failed login attempt", username);
+    }
+}
+
+void Register() {
+    string name, username, password;
+
+    cout << "Enter your full name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    cout << "Enter new username: ";
+    cin >> username;
+
+    ifstream checkFile("users.txt");
+    if (checkFile.is_open()) {
+        string storedName, storedUser, storedPass;
+        while (checkFile >> storedName >> storedUser >> storedPass) {
+            if (storedUser == username) {
+                cout << "\n[ERROR] Username already exists. Registration failed.\n";
+                checkFile.close();
+                return;
+            }
+        }
+        checkFile.close();
+    }
+
+    cout << "Enter new password: ";
+    cin >> password;
+
+    string hashedPassword = HashPassword(password);
+
+    ofstream file("users.txt", ios::app);
+    if (!file.is_open()) {
+        cout << "Error opening users.txt for saving.\n";
+        return;
+    }
+
+    file << name << " " << username << " " << hashedPassword << endl;
+    file.close();
+
+    cout << "Registration successful! You can now log in.\n";
+    SaveRecord("Registered new account", username);
+}
+
+void SaveRecord(const string &action, const string &username) {
+    ofstream log("records.txt", ios::app);
+    if (!log.is_open()) {
+        cout << "Error opening records file.\n";
+        return;
+    }
+
+    log << "[" << GetTime() << "] " << action
+        << " - User: " << username << endl;
+
+    log.close();
+}
 
 SecMenu(){
 
