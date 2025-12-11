@@ -16,3 +16,8 @@ int main(){
   
   return0;
 }
+
+
+void SymptomsChecker(){
+}
+
