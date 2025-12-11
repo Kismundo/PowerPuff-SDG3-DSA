@@ -1,5 +1,11 @@
 #include <iostream>
+#include <string>
+#include <limits>
+#include <functional>
+
 using namepsace std;
+
+
 //prototype
 void Welcome();
 void LogIn();
