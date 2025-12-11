@@ -124,7 +124,6 @@ SAMPLE OUTPUT
 
 ----------------------------------
 WELCOME TO HEALTH-TRACKER SYSTEM
-Aligns with SDG 3: Good Health and Well-being
 ----------------------------------------------
 [1.] Log-In
 
