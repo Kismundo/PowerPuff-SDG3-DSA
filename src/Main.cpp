@@ -17,6 +17,10 @@ int main(){
   return0;
 }
 
+void MainMenu(){
+
+}
+
 
 void SymptomsChecker(){
 }
