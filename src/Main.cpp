@@ -150,14 +150,10 @@ string HashPassword(const string &password) {
 }
 
 string GetTime() {
-
     time_t now = time(0);
-
     tm *ltm = localtime(&now);
-
-
+    
     char buffer[40];
-
     snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d %02d:%02d",
              1900 + ltm->tm_year,
              1 + ltm->tm_mon,
