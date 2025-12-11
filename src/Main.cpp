@@ -22,8 +22,88 @@ void MainMenu(){
 }
 
 
-void SymptomsChecker(){
+void SymptomsChecker(const string& username){
+    char soreThroat, headache, cough, chestPain, backPain;
+    string symptoms = "";
+    string diagnosis ="";
+cout <<"Do you have the following symptoms? (Y/N);
+
+    While (true){
+cout<< "soreThroat";
+cin<< soreThroat;
+soreThroat = toupper(soreThroat);
+if (soreThroat == "Y" || soreThroat == "N") break;
+cout<< "[ERROR] Not in the given question.\n";
+    
 }
+if (soreThroat == "Y") symptoms += "Sore Throat, "; 
+
+While (true) {
+cout<< "Headache: ";
+cin >> Headache;
+Headache = toupper(Headache);
+if (Headache == "Y" || headache == "N") break;
+cout << "[ERROR] Not in the given question.\n";
+}
+if (Headache == "Y" symptoms += "Headache, ";
+
+While (true) {
+cout<< "cough: ";
+cin >> cough;
+cough = toupper(cough);
+if (cough == "Y" || cough == "N") break;
+cout << "[ERROR] Not in the given question.\n";
+}
+if (cough == "Y" symptoms += "cough, ";
+
+While (true) {
+cout << "chestPain: ";
+cin >> chestPain;
+chestPain = toupper(chestPain);
+if (chestPain == "Y" || chestPain == "N") break;
+cout << "[ERROR] Not in the given question.\n";
+}
+if (chestPain == "Y" symptoms += "chestPain, ";
+
+While (true) {
+cout << "backPain: ";
+cin >> backPain;
+backPain = toupper(backPain);
+if (backPain == "Y" || backPain == "N") break;
+cout << "[ERROR] Not in the given question.\n";
+}
+if (backPain == "Y" symptoms += "backPain, ";
+
+if (!symptoms.empty()) { 
+symptoms = symptoms.subtr(0, symptoms.length() - 2);
+
+}
+
+if (cough == 'Y' && soreThroat == 'Y') {
+        diagnosis = "Possible flu or viral infection";
+        cout << diagnosis << ".\n";
+    } else if (chestPain == 'Y' && cough == 'Y') {
+        diagnosis = "Warning: Possible respiratory issue. Seek medical attention";
+        cout << diagnosis << ".\n";
+    } else if (backPain == 'Y' && headache == 'Y') {
+        diagnosis = "Possible fatigue or stress-related symptoms";
+        cout << diagnosis << ".\n";
+    } else if (soreThroat == 'N' && headache == 'N' &&
+               cough == 'N' && chestPain == 'N' && backPain == 'N') {
+        diagnosis = "No symptoms detected";
+        cout << "You have no symptoms. You seem fine.\n";
+    } else {
+        diagnosis = "Symptoms are mild or unclear. Monitor your condition";
+        cout << diagnosis << ".\n";
+    }
+
+    
+    string details = "Symptoms: " + symptoms + ". Diagnosis: " + diagnosis;
+    SaveUserRecord(username, "SYMPTOMS_CHECK", details);
+}
+
+
+
 
 void BMIChecker(){
 
