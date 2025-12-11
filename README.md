@@ -16,77 +16,73 @@ User & Admin System
 
 - Register new user
 - Secure login system using std::hash
-- -Built-in admin accounts
+- Built-in admin accounts
 -------------------------
 -------------------------
 HEALTH TOOLS
 
 Daily Assesment
--Ask water intake
 
-
--Ask hours of sleep
-
-
--Ask physical activity
-
-
--Generate overall rating
-
-
+- Ask water intake
+- Ask physical activity
+- Generate overall rating
 -------------------------
 -------------------------
+
 Symptoms Checker
--Ask if have sore throat
--Ask if have headache
--Ask if have cough
--Ask if have chest pain
--Ask if haveback pain
--Generate possible basic diagnosis based on symptoms
+
+- Ask if have sore throat
+- Ask if have headache
+- Ask if have cough
+- Ask if have chest pain
+- Ask if haveback pain
+- Generate possible basic diagnosis based on symptoms
 --------------------------
+
 --------------------------
 BMI Checker
--Ask weight(kg)
--Ask height(cm)
--Calcute BMI
--Display categorize bmi status
+
+- Ask weight(kg)
+- Ask height(cm)
+- Calcute BMI
+- Display categorize bmi status
 ---------------------------
 
 ------------------------------------
 RECORD TRACKING
--Save all assesment,symptoms, and BMI results
--Display result in a clean, table-like format
--Uses: 
-  -Linked List (for storing records before sorting)
-  -Bubble Sort (for sort records by timestamp)
+- Save all assesment,symptoms, and BMI results
+- Display result in a clean, table-like format
+- Uses: 
+  - Linked List (for storing records before sorting)
+  - Bubble Sort (for sort records by timestamp)
 -------------------------------------
 
 -------------------------------------
 TASK QUEUE
--Display task to accomplish in queue
--Task are remoove after completion 
+- Display task to accomplish in queue
+- Task are remoove after completion 
 -------------------------------------
 
 -------------------------------------
 FILE CREATED
 - user.txt 
   -Stores registered users with hashed passwords
--records.txt
-  -System-level log (logins, actions)
--user_history.txt
-  -Individual user heaqlth activity history
+- ecords.txt
+  - System-level log (logins, actions)
+- user_history.txt
+  - Individual user heaqlth activity history
 -------------------------------------
 
 ------------------------------------
 DATA STRUCTURES & ALGORITHMS USED
--Linked-List
-  -Store user records temporary
--Bubble Sort
-  -Sort records by timestamp
--Queue(Array-based)
-  -Track pending health task
--Hash Funtion
-  -Secure password storage using std::hash
+- Linked-List
+  - Store user records temporary
+- Bubble Sort
+  - Sort records by timestamp
+- Queue(Array-based)
+  - Track pending health task
+- Hash Funtion
+  - Secure password storage using std::hash
 -------------------------------------
 
 
