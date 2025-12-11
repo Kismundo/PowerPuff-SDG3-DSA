@@ -15,14 +15,8 @@ FEATURES
 User & Admin System
 
 - Register new user
-
-  
--Secure login system using std::hash
-
-
--Built-in admin accounts
-
-
+- Secure login system using std::hash
+- -Built-in admin accounts
 -------------------------
 -------------------------
 HEALTH TOOLS
