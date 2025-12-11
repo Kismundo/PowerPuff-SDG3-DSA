@@ -543,7 +543,7 @@ string category;
 
     cout << "===============================\n";
 
-    string details = "weight: " + to_string(weight) + "kg, Height: " + to_string(heightCm) + "cm,BMI: " + to_string(bmi) + " , Category: " = category;
+    string details = "weight: " + to_string(weight) + "kg, Height: " + to_string(heightCm) + "cm,BMI: " + to_string(bmi) + " , Category: " + category;
     SaveUserRecord(username , "BMI_CHECK", details);
     SaveRecord("User performed BMI check", username);
 
