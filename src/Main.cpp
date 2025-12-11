@@ -515,24 +515,25 @@ string category;
         }
     }          
 
-    float heightM = heightCm / 100.0;
-    bmi = weight / (heightM * heightCm);
+    float heightM = heightCm / 100.0f;
+    bmi = weight / (heightM * heightM);
 
+    cout << fixed << setprecision(2);
     cout << "\nYour BMI is : " << bmi << endl; 
 
-    if (bmi < 18.5){
+    if (bmi < 18.5f){
         category = "Underweight";
         cout << "Category : " << category << "\n";
-    }else if (bmi < 24.9){
+    }else if (bmi < 24.9f){
        category = "Normal Weight";
        cout << "Category : " << category << "\n";
-    }else if (bmi < 29.9){
+    }else if (bmi < 29.9f){
         category = "Overweight";
         cout << "Category : " << category << "\n";
-    }else if (bmi < 34.9){
+    }else if (bmi < 34.9f){
         category = "Obese Class I";
         cout << "Category : " << category << "\n";
-    }else if (bmi < 39.9){
+    }else if (bmi < 39.9f){
         category = "Obese Class II";
         cout << "Category : " << category << "\n";
     }else {
