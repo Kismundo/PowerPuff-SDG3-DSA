@@ -130,27 +130,12 @@ public:
 
 User userSystem;
 
-string HashPassword(const string &password) {
-    hash<string> hasher;
-    size_t hashed = hasher(password);
-    return to_string(hashed);
+int main(){
+    srand((unsigned)time(nullptr));
+    Welcome();
+    MainMenu();
+    return 0;
 }
-
-string GetTime() {
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-
-    char buffer[40];
-    snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d %02d:%02d",
-             1900 + ltm->tm_year,
-             1 + ltm->tm_mon,
-             ltm->tm_mday,
-             ltm->tm_hour,
-             ltm->tm_min);
-
-    return string(buffer);
-}
-
 
 void Welcome(){
     cout << "=======================================\n";
@@ -158,11 +143,40 @@ void Welcome(){
     cout << "=======================================\n";
 }
 
-int main(){
-  Welcome();
-  MainMenu();
-  
-  return0;
+string HashPassword(const string &password) {
+    hash<string> hasher;
+    size_t hashed = hasher(password);
+    return to_string(hashed);
+}
+
+string GetTime() {
+
+    time_t now = time(0);
+
+    tm *ltm = localtime(&now);
+
+
+    char buffer[40];
+
+    snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d %02d:%02d",
+             1900 + ltm->tm_year,
+             1 + ltm->tm_mon,
+             ltm->tm_mday,
+             ltm->tm_hour,
+             ltm->tm_min);
+    return string(buffer);
+
+}
+
+void SaveUserRecord(const string &username, const string &category, const string &details) {
+    ofstream file("user_history.txt", ios::app);
+    if (!file.is_open()) {
+        cout << "Error opening user history file.\n";
+        return;
+    }
+    file << username << "|" << GetTime() << "|" << category << "|" << details << endl;
+    file.close();
+
 }
 
 void MainMenu(){
