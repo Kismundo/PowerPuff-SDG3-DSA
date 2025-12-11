@@ -1,9 +1,75 @@
 #include <iostream>
 
 using namepsace std;
-
+//prototype
 void Welcome();
 void MainMenu();
+
+
+struct RecordNode {
+    string timestamp, category, details;
+    RecordNode* next;
+
+    RecordNode(const string& t, const string& c, const string& d) {
+        timestamp = t;
+        category = c;
+        details = d;
+        next = nullptr;
+    }
+};
+class TaskQueue {
+private:
+    string tasks[10];
+    int front, rear;
+
+public:
+    TaskQueue() {
+        front = -1;
+        rear = -1;
+    }
+
+    bool isFull() {
+        return rear == 9;
+    }
+
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    void enqueue(const string& task) {
+        if (isFull()) return;
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear++;
+        }
+        tasks[rear] = task;
+    }
+
+    void dequeue() {
+        if (isEmpty()) return;
+        if (front == rear) {
+            front = rear = -1;
+        } else {
+            front++;
+        }
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "No pending tasks.\n";
+            return;
+        }
+        cout << "Pending Tasks:\n";
+        for (int i = front; i <= rear; i++) {
+            cout << "- " << tasks[i] << endl;
+        }
+    }
+
+    void clear() {
+        front = rear = -1;
+    }
+};
 
 void Welcome(){
     cout << "=======================================\n";
