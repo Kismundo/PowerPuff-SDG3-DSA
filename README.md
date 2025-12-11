@@ -85,6 +85,13 @@ DATA STRUCTURES & ALGORITHMS USED
   - Secure password storage using std::hash
 -------------------------------------
 
+-------------------------------------
+HOW TO RUN
+
+- Compile
+  - g++ main.cpp -o health_app
+- Run
+    - ./health_app
 
 
 
