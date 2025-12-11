@@ -1,5 +1,11 @@
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <vector>
+#include <ctime>
+#include <cstdlib>
+#include <sstream>
+#include <iomanip>
 #include <limits>
 #include <functional>
 
