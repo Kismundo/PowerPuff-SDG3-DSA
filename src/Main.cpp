@@ -392,9 +392,9 @@ assessment += "Poor,"; }
 
 
 int excellentCount = 0, goodCount = 0, poorCount = 0;
-if (assessment.find("Excellent") != string: :npos) excellentCount++;
-if (assessment.find("Good") != string: :npos) goodCount++;
-if (assessment.find("Poor") != string: :npos) poorCount++;
+if (assessment.find("Excellent") != string::npos) excellentCount++;
+if (assessment.find("Good") != string::npos) goodCount++;
+if (assessment.find("Poor") != string::npos) poorCount++;
 
 
 if (excellentCount >= 2) {
@@ -403,17 +403,17 @@ overallWellness = "Excellent Wellness";
 else if (excellentCount >= 2 ||(excellentCount >= 1 && goodCount >= 1)) {
 overallWellness = "Good Wellness";
 } else {
-overWellness = "Poor Wellness";
-)
+overallWellness = "Poor Wellness";
+}
 
-cout <<"\nOVERALL WELLNESS: " << overWellness << endl;
+cout <<"\nOVERALL WELLNESS: " << overallWellness << endl;
 cout << "==============================================================\n";
 
 
 SaveUserRecord(username, "DAILY_ASSESSMENT", overallWellness);
 SaveRecord("User performed daily assessment", username);
 
-if (!pendingTasks.isEmpty()) pendingTasks.dequeue(); 
+if (!PendingTasks.isEmpty()) PendingTasks.dequeue(); 
 }
 
 void SymptomsChecker(const string& username) {
@@ -475,10 +475,10 @@ void SymptomsChecker(const string& username) {
     SaveRecord("User performed symptoms check", username);
 
    
-    if (!pendingTasks.isEmpty()) pendingTasks.dequeue();
+    if (!PendingTasks.isEmpty()) PendingTasks.dequeue();
 }
 
-void BMIChecker(){
+void BMIChecker(const string& username){
 
 float weight, heightCm, bmi;
 string category;
@@ -515,7 +515,7 @@ string category;
         }
     }          
 
-    float heaightM = heightCm / 100.0;
+    float heightM = heightCm / 100.0;
     bmi = weight / (heightM * heightCm);
 
     cout << "\nYour BMI is : " << bmi << endl; 
@@ -542,11 +542,11 @@ string category;
 
     cout << "===============================\n";
 
-    string detailes = "weight: " + to_string(weight) + "kg, Height: " + to_string(heightCm) + "cm,BMI: " + to_string(bmi) + " , Category: " = category;
+    string details = "weight: " + to_string(weight) + "kg, Height: " + to_string(heightCm) + "cm,BMI: " + to_string(bmi) + " , Category: " = category;
     SaveUserRecord(username , "BMI_CHECK", details);
     SaveRecord("User performed BMI check", username);
 
-    if (!pendingTasks.isEmpty()) pendingTasks.dequeue();
+    if (!PendingTasks.isEmpty()) PendingTasks.dequeue();
 }
 
 void ViewRecords(const string& username) {
