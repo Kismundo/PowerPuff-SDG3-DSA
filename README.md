@@ -10,7 +10,11 @@ along with file handling for persistent storage.
 
 ---------------------------
 FEATURES
+
+
 User & Admin System
+
+
 - Register new user
 -Secure login system using std::hash
 -Built-in admin accounts
