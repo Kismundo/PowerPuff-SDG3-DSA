@@ -288,11 +288,55 @@ void SaveRecord(const string &action, const string &username) {
     log.close();
 }
 
-SecMenu(){
+void SecMenu(const string& username) {
+    int choice;
+    do {
+        cout << "----------------------------------------------------\n";
+        cout << "[1.] Daily Health Assessment" << endl;
+        cout << "[2.] Symptoms Checker" << endl;
+        cout << "[3.] BMI Checker" << endl;
+        cout << "[4.] View My Health History" << endl;
+        cout << "[5.] Log-Out" << endl;
+        cout << "----------------------------------------------------\n";
 
+        cout << "\nYour Current Task Queue:\n";
+        pendingTasks.display();
+        cout << endl;
 
-    
+        cout << "Enter Your Chosen Number Here: ";
+        cin >> choice;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "[ERROR] Invalid Input! Please enter a number 1-5.\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                DailyAssessment(username);
+                break;
+            case 2:
+                SymptomsChecker(username);
+                break;
+            case 3:
+                BMIChecker(username);
+                break;
+            case 4:
+                ViewRecords(username);
+                break;
+            case 5:
+                cout << "Logging out...\n";
+                SaveUserRecord(username, "SYSTEM", "User logged out");
+                SaveRecord("User logged out", username);
+                pendingTasks.clear();
+                return;
+            default:
+                cout << "[Error] Invalid Input! Choose 1-5 only.\n";
+        }
+    } while (true);
 }
+
 void DailyAssessment(const string& username) {
 int water, hrsofsleep, minofact;
 string assessment;
@@ -408,9 +452,6 @@ void SymptomsChecker(const string& username) {
     if (!pendingTasks.isEmpty()) pendingTasks.dequeue();
 }
 
-
-
-
 void BMIChecker(){
 
 float weight, heightCm, bmi;
@@ -480,4 +521,128 @@ string category;
     SaveRecord("User performed BMI check", username);
 
     if (!pendingTasks.isEmpty()) pendingTasks.dequeue();
+}
+
+void ViewRecords(const string& username) {
+    ifstream file("user_history.txt");
+    if (!file.is_open()) {
+        cout << "\n===============================================\n";
+        cout << "     No health history found for " << username << "\n";
+        cout << "  Start tracking your health to build history!\n";
+        cout << "===============================================\n";
+        return;
+    }
+
+    string line;
+    RecordNode* head = nullptr;
+    RecordNode* tail = nullptr;
+    int recordCount = 0;
+
+    while (getline(file, line)) {
+        size_t pos1 = line.find('|');
+        if (pos1 != string::npos) {
+            string recordUsername = line.substr(0, pos1);
+            if (recordUsername == username) {
+                size_t pos2 = line.find('|', pos1 + 1);
+                size_t pos3 = line.find('|', pos2 + 1);
+
+                if (pos2 == string::npos || pos3 == string::npos) continue;
+
+                string timestamp = line.substr(pos1 + 1, pos2 - pos1 - 1);
+                string category = line.substr(pos2 + 1, pos3 - pos2 - 1);
+                string details = line.substr(pos3 + 1);
+
+                RecordNode* newNode = new RecordNode(timestamp, category, details);
+                if (!head) head = tail = newNode;
+                else {
+                    tail->next = newNode;
+                    tail = newNode;
+                }
+                recordCount++;
+            }
+        }
+    }
+    file.close();
+
+    cout << "\n==============================================================\n";
+    cout << "              HEALTH HISTORY FOR: " << username << "\n";
+    cout << "==============================================================\n";
+    
+    if (recordCount == 0) {
+    cout << "        No records found...\n";
+    while (head) {
+        RecordNode* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    return;
+}
+
+    vector<string> sortedRecords;
+    RecordNode* current = head;
+    while (current) {
+        sortedRecords.push_back(current->timestamp + "|" + current->category + "|" + current->details);
+        current = current->next;
+    }
+
+    current = head;
+    while (current) {
+        RecordNode* temp = current;
+        current = current->next;
+        delete temp;
+    }
+    head = nullptr;
+    tail = nullptr;
+
+    bubbleSort(sortedRecords); 
+
+    cout << "+------------------------+------------------+--------------------+\n";
+    cout << "|      DATE/TIME         |    CATEGORY      |     DETAILS        |\n";
+    cout << "+------------------------+------------------+--------------------+\n";
+    
+    for (int i = (int)sortedRecords.size() - 1; i >= 0; i--) {
+        string entry = sortedRecords[i];
+        size_t pos1 = entry.find('|');
+        size_t pos2 = entry.find('|', pos1 + 1);
+
+        string timestamp = (pos1 != string::npos) ? entry.substr(0, pos1) : "";
+        string category = (pos1 != string::npos && pos2 != string::npos) ? entry.substr(pos1 + 1, pos2 - pos1 - 1) : "";
+        string details = (pos2 != string::npos) ? entry.substr(pos2 + 1) : "";
+
+        cout << "| ";
+        cout.width(22); cout << left << timestamp;
+        cout << " | ";
+        cout.width(16); cout << left << category;
+        cout << " | ";
+        if (details.length() > 18) details = details.substr(0, 15) + "...";
+        cout.width(18); cout << left << details;
+        cout << " |\n";
+        if (i > 0) {
+            cout << "+------------------------+------------------+--------------------+\n";
+        }
+    }
+    cout << "+------------------------+------------------+--------------------+\n\n";
+
+    cout << "==================== HEALTH STATISTICS ====================\n";
+    
+    int dailyCount = 0, symptomCount = 0, bmiCount = 0, systemCount = 0;
+    for (const string& rec : sortedRecords) {
+        size_t p1 = rec.find('|');
+        size_t p2 = rec.find('|', p1 + 1);
+        if (p1 != string::npos && p2 != string::npos) {
+            string cat = rec.substr(p1 + 1, p2 - p1 - 1);
+            if (cat == "DAILY_ASSESSMENT") dailyCount++;
+            else if (cat == "SYMPTOMS_CHECK") symptomCount++;
+            else if (cat == "BMI_CHECK") bmiCount++;
+            else if (cat == "SYSTEM") systemCount++;
+        }
+    }
+    
+    cout << "  Daily Assessments: " << dailyCount << " records\n";
+    cout << "  Symptoms Checks:   " << symptomCount << " records\n";
+    cout << "  BMI Checks:        " << bmiCount << " records\n";
+    cout << "  System Activities: " << systemCount << " records\n";
+    cout << "  ---------------------------------------\n";
+    cout << "  TOTAL RECORDS:     " << recordCount << " records\n";
+    cout << "==============================================================\n";
 }
