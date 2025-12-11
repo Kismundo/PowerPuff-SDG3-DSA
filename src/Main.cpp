@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namepsace std;
 
 void Welcome();
@@ -18,8 +19,33 @@ int main(){
 }
 
 void MainMenu(){
+    int choice;
+    do {
+        cout << "-----------------------------------------------\n";
+        cout << "[1.] Log-In" << endl;
+        cout << "[2.] Register" << endl;
+        cout << "[3.] Exit" << endl;
+        cout << "-----------------------------------------------\n";
+        cout << "Enter Your Choice Here: ";
+        cin >> choice;
 
+
+        switch (choice) {
+            case 1:
+                LogIn();
+                break;
+            case 2:
+                Register();
+                break;
+            case 3:
+                cout << "Ending Program.\n";
+                exit(0);
+            default:
+                cout << "[ERROR] Invalid Input! 1-3 Only!\n";
+        }
+    } while (true);
 }
+
 
 
 void SymptomsChecker(const string& username){
