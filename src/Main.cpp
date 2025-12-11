@@ -12,16 +12,19 @@
 using namepsace std;
 
 
-//prototype
 void Welcome();
 void LogIn();
 void Register();
 void SaveRecord(const string &action, const string &username = "");
+void SaveUserRecord(const string &username, const string &category, const string &details);
 void MainMenu();
+void SecMenu(const string& username);
 void DailyAssessment(const string& username);
 void SymptomsChecker(const string& username);
 void BMIChecker(const string& username);
-
+void ViewRecords(const string& username);
+string HashPassword(const string &password);
+string GetTime();
 
 
 struct RecordNode {
