@@ -92,6 +92,58 @@ HOW TO RUN
   - g++ main.cpp -o health_app
 - Run
     - ./health_app
+-----------------------------------
+
+---------------------------------
+PROGRAM FLOW
+
+--> Welcome Display
+
+--> Main Menu
+  - Login
+  - Register
+  - Exit
+
+--> After Login
+  - Daily Health Assessment
+  - Symptoms Checker
+  - BMI Checker
+  - View Health History
+  - Log Out
+--------------------------------
+
+--------------------------------
+PASSWORD HASHING
+//password are stored as hashed string to prevents storing plain-text password.
+- Using:
+  -hash<string>
+--------------------------------
+
+SAMPLE OUTPUT
+
+----------------------------------
+WELCOME TO HEALTH-TRACKER SYSTEM
+Aligns with SDG 3: Good Health and Well-being
+----------------------------------------------
+[1.] Log-In
+[2.] Register
+[3.] Exit
+-----------------------------------------------
+
+ADMIN 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
