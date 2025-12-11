@@ -13,6 +13,8 @@ void Register();
 void SaveRecord(const string &action, const string &username = "");
 void MainMenu();
 void DailyAssessment(const string& username);
+void SymptomsChecker(const string& username);
+void BMIChecker(const string& username);
 
 
 
