@@ -294,84 +294,66 @@ SecMenu(){
 }
 
 
-void SymptomsChecker(const string& username){
+void SymptomsChecker(const string& username) {
     char soreThroat, headache, cough, chestPain, backPain;
     string symptoms = "";
-    string diagnosis ="";
-cout <<"Do you have the following symptoms? (Y/N);
+    string diagnosis = "";
 
-    While (true){
-cout<< "soreThroat";
-cin<< soreThroat;
-soreThroat = toupper(soreThroat);
-if (soreThroat == "Y" || soreThroat == "N") break;
-cout<< "[ERROR] Not in the given question.\n";
-    
-}
-if (soreThroat == "Y") symptoms += "Sore Throat, "; 
+    cout << "Do you have the following symptoms? (Y/N)\n";
 
-While (true) {
-cout<< "Headache: ";
-cin >> Headache;
-Headache = toupper(Headache);
-if (Headache == "Y" || headache == "N") break;
-cout << "[ERROR] Not in the given question.\n";
-}
-if (Headache == "Y" symptoms += "Headache, ";
+    cout << "Sore Throat: ";
+    cin >> soreThroat;
+    if (soreThroat == 'Y' || soreThroat == 'y') symptoms += "Sore Throat, ";
 
-While (true) {
-cout<< "cough: ";
-cin >> cough;
-cough = toupper(cough);
-if (cough == "Y" || cough == "N") break;
-cout << "[ERROR] Not in the given question.\n";
-}
-if (cough == "Y" symptoms += "cough, ";
+    cout << "Headache: ";
+    cin >> headache;
+    if (headache == 'Y' || headache == 'y') symptoms += "Headache, ";
 
-While (true) {
-cout << "chestPain: ";
-cin >> chestPain;
-chestPain = toupper(chestPain);
-if (chestPain == "Y" || chestPain == "N") break;
-cout << "[ERROR] Not in the given question.\n";
-}
-if (chestPain == "Y" symptoms += "chestPain, ";
+    cout << "Cough: ";
+    cin >> cough;
+    if (cough == 'Y' || cough == 'y') symptoms += "Cough, ";
 
-While (true) {
-cout << "backPain: ";
-cin >> backPain;
-backPain = toupper(backPain);
-if (backPain == "Y" || backPain == "N") break;
-cout << "[ERROR] Not in the given question.\n";
-}
-if (backPain == "Y" symptoms += "backPain, ";
+    cout << "Chest Pain: ";
+    cin >> chestPain;
+    if (chestPain == 'Y' || chestPain == 'y') symptoms += "Chest Pain, ";
 
-if (!symptoms.empty()) { 
-symptoms = symptoms.subtr(0, symptoms.length() - 2);
+    cout << "Back Pain: ";
+    cin >> backPain;
+    if (backPain == 'Y' || backPain == 'y') symptoms += "Back Pain, ";
 
-}
+  
+    if (!symptoms.empty()) {
+        symptoms = symptoms.substr(0, symptoms.length() - 2);
+    }
 
-if (cough == 'Y' && soreThroat == 'Y') {
+    if ((cough == 'Y' || cough == 'y') && (soreThroat == 'Y' || soreThroat == 'y')) {
         diagnosis = "Possible flu or viral infection";
         cout << diagnosis << ".\n";
-    } else if (chestPain == 'Y' && cough == 'Y') {
+    } else if ((chestPain == 'Y' || chestPain == 'y') && (cough == 'Y' || cough == 'y')) {
         diagnosis = "Warning: Possible respiratory issue. Seek medical attention";
         cout << diagnosis << ".\n";
-    } else if (backPain == 'Y' && headache == 'Y') {
+    } else if ((backPain == 'Y' || backPain == 'y') && (headache == 'Y' || headache == 'y')) {
         diagnosis = "Possible fatigue or stress-related symptoms";
         cout << diagnosis << ".\n";
-    } else if (soreThroat == 'N' && headache == 'N' &&
-               cough == 'N' && chestPain == 'N' && backPain == 'N') {
+    } else if ((soreThroat == 'N' || soreThroat == 'n') &&
+               (headache == 'N' || headache == 'n') &&
+               (cough == 'N' || cough == 'n') &&
+               (chestPain == 'N' || chestPain == 'n') &&
+               (backPain == 'N' || backPain == 'n')) {
         diagnosis = "No symptoms detected";
         cout << "You have no symptoms. You seem fine.\n";
     } else {
         diagnosis = "Symptoms are mild or unclear. Monitor your condition";
         cout << diagnosis << ".\n";
     }
-
     
+
     string details = "Symptoms: " + symptoms + ". Diagnosis: " + diagnosis;
     SaveUserRecord(username, "SYMPTOMS_CHECK", details);
+    SaveRecord("User performed symptoms check", username);
+
+   
+    if (!pendingTasks.isEmpty()) pendingTasks.dequeue();
 }
 
 
