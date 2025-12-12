@@ -364,56 +364,82 @@ void SecMenu(const string& username) {
 }
 
 void DailyAssessment(const string& username) {
-int water, hrsofsleep, minofact;
-string assessment;
-string overallWellness;
+    int water, hrsofsleep, minofact;
+    string assessment;
+    string overallWellness;
 
-cout << "==============================================================\n";
+    cout << "==============================================================\n";
 
-cout <<"Indicate the number of cups of water you drank today: ";
-cin >> water;
+    while (true) {
+        cout << "Indicate the number of cups of water you drank today: ";
+        cin >> water;
+        if (cin.fail() || water < 0) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input! Please enter a valid number.\n";
+        } else {
+            cin.ignore(10000, '\n');
+            break;
+        }
+    }
 
-cout <<"Specify your sleep hours last night: ";
-cin >> hrsofsleep;
+    while (true) {
+        cout << "Specify your sleep hours last night: ";
+        cin >> hrsofsleep;
+        if (cin.fail() || hrsofsleep < 0) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input! Please enter a valid number.\n";
+        } else {
+            cin.ignore(10000, '\n');
+            break;
+        }
+    }
 
-cout <<"Minutes of Physical today: ";
-cin >> minofact;
+    while (true) {
+        cout << "Minutes of Physical Activity today: ";
+        cin >> minofact;
+        if (cin.fail() || minofact < 0) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input! Please enter a valid number.\n";
+        } else {
+            cin.ignore(10000, '\n');
+            break;
+        }
+    }
 
-cout << "==============================================================\n";
-cout << "\nDaily Assessment Summary:\n";
+    cout << "==============================================================\n";
+    cout << "\nDaily Assessment Summary:\n";
 
+    if (water >= 8) assessment += "Excellent,";
+    else if (water >= 5) assessment += "Good,";
+    else assessment += "Poor,";
 
-if(water>=8) {
-assessment += "Excellent,";
-} else if (water >= 5) {
-assessment += "Good,";
-} else { 
-assessment += "Poor,"; }
+    if (hrsofsleep >= 8) assessment += "Excellent,";
+    else if (hrsofsleep >= 6) assessment += "Good,";
+    else assessment += "Poor,";
 
+    if (minofact >= 30) assessment += "Excellent,";
+    else if (minofact >= 15) assessment += "Good,";
+    else assessment += "Poor,";
 
-int excellentCount = 0, goodCount = 0, poorCount = 0;
-if (assessment.find("Excellent") != string::npos) excellentCount++;
-if (assessment.find("Good") != string::npos) goodCount++;
-if (assessment.find("Poor") != string::npos) poorCount++;
+    int excellentCount = 0, goodCount = 0, poorCount = 0;
+    if (assessment.find("Excellent") != string::npos) excellentCount++;
+    if (assessment.find("Good") != string::npos) goodCount++;
+    if (assessment.find("Poor") != string::npos) poorCount++;
 
+    if (excellentCount >= 2) overallWellness = "Excellent Wellness";
+    else if (excellentCount >= 1 && goodCount >= 1) overallWellness = "Good Wellness";
+    else overallWellness = "Poor Wellness";
 
-if (excellentCount >= 2) {
-overallWellness = "Excellent Wellness";
-}
-else if (excellentCount >= 2 ||(excellentCount >= 1 && goodCount >= 1)) {
-overallWellness = "Good Wellness";
-} else {
-overallWellness = "Poor Wellness";
-}
+    cout << "\nOVERALL WELLNESS: " << overallWellness << endl;
+    cout << "==============================================================\n";
 
-cout <<"\nOVERALL WELLNESS: " << overallWellness << endl;
-cout << "==============================================================\n";
+    SaveUserRecord(username, "DAILY_ASSESSMENT", overallWellness);
+    SaveRecord("User performed daily assessment", username);
 
-
-SaveUserRecord(username, "DAILY_ASSESSMENT", overallWellness);
-SaveRecord("User performed daily assessment", username);
-
-if (!PendingTasks.isEmpty()) PendingTasks.dequeue(); 
+    if (!PendingTasks.isEmpty()) PendingTasks.dequeue();
 }
 
 void SymptomsChecker(const string& username) {
