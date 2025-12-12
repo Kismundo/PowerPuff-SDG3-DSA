@@ -423,27 +423,30 @@ void SymptomsChecker(const string& username) {
 
     cout << "Do you have the following symptoms? (Y/N)\n";
 
-    cout << "Sore Throat: ";
-    cin >> soreThroat;
+    auto askSymptom = [](const string& prompt, char& response) {
+        while (true) {
+            cout << prompt;
+            cin >> response;
+            if (response == 'Y' || response == 'y' || response == 'N' || response == 'n') break;
+            cout << "Invalid input. Please enter Y or N.\n";
+        }
+    };
+
+    askSymptom("Sore Throat: ", soreThroat);
     if (soreThroat == 'Y' || soreThroat == 'y') symptoms += "Sore Throat, ";
 
-    cout << "Headache: ";
-    cin >> headache;
+    askSymptom("Headache: ", headache);
     if (headache == 'Y' || headache == 'y') symptoms += "Headache, ";
 
-    cout << "Cough: ";
-    cin >> cough;
+    askSymptom("Cough: ", cough);
     if (cough == 'Y' || cough == 'y') symptoms += "Cough, ";
 
-    cout << "Chest Pain: ";
-    cin >> chestPain;
+    askSymptom("Chest Pain: ", chestPain);
     if (chestPain == 'Y' || chestPain == 'y') symptoms += "Chest Pain, ";
 
-    cout << "Back Pain: ";
-    cin >> backPain;
+    askSymptom("Back Pain: ", backPain);
     if (backPain == 'Y' || backPain == 'y') symptoms += "Back Pain, ";
 
-  
     if (!symptoms.empty()) {
         symptoms = symptoms.substr(0, symptoms.length() - 2);
     }
@@ -468,15 +471,14 @@ void SymptomsChecker(const string& username) {
         diagnosis = "Symptoms are mild or unclear. Monitor your condition";
         cout << diagnosis << ".\n";
     }
-    
 
     string details = "Symptoms: " + symptoms + ". Diagnosis: " + diagnosis;
     SaveUserRecord(username, "SYMPTOMS_CHECK", details);
     SaveRecord("User performed symptoms check", username);
 
-   
     if (!PendingTasks.isEmpty()) PendingTasks.dequeue();
 }
+
 
 void BMIChecker(const string& username){
 
